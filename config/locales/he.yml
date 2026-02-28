@@ -91,6 +91,7 @@ he:
   # תפריט הקשר
   context_menu:
     new_note: "הערה חדשה"
+    new_folder: "תיקייה חדשה"
     rename: "שנה שם"
     delete: "מחק"
 

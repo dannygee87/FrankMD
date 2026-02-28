@@ -93,6 +93,9 @@ export default class extends Controller {
     if (deleteItem) deleteItem.classList.toggle("hidden", false)
     if (newNoteItem) newNoteItem.classList.toggle("hidden", type !== "folder")
 
+    const newFolderItem = this.contextMenuTarget.querySelector('[data-action*="newFolderInFolder"]')
+    if (newFolderItem) newFolderItem.classList.toggle("hidden", type !== "folder")
+
     // Position and show menu
     this.contextMenuTarget.style.left = `${event.clientX}px`
     this.contextMenuTarget.style.top = `${event.clientY}px`
@@ -140,6 +143,13 @@ export default class extends Controller {
   // New Folder
   newFolder() {
     this.openNewItemDialog("folder", "")
+  }
+
+  // New Folder in Folder (from context menu)
+  newFolderInFolder() {
+    this.hideContextMenu()
+    if (!this.contextItem || this.contextItem.type !== "folder") return
+    this.openNewItemDialog("folder", this.contextItem.path)
   }
 
   // New Note in Folder (from context menu)

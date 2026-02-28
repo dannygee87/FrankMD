@@ -24,6 +24,7 @@ describe("FileOperationsController", () => {
           <button data-action="click->file-operations#renameItem">Rename</button>
           <button data-action="click->file-operations#deleteItem">Delete</button>
           <button data-action="click->file-operations#newNoteInFolder">New Note</button>
+          <button data-action="click->file-operations#newFolderInFolder">New Folder</button>
         </div>
         <dialog data-file-operations-target="renameDialog">
           <input data-file-operations-target="renameInput" type="text" />
@@ -194,6 +195,37 @@ describe("FileOperationsController", () => {
       controller.newFolder()
 
       expect(openSpy).toHaveBeenCalledWith("folder", "")
+    })
+  })
+
+  describe("newFolderInFolder()", () => {
+    it("hides context menu and opens new item dialog for folder", () => {
+      controller.contextItem = { path: "parent/myfolder", type: "folder" }
+      controller.contextMenuTarget.classList.remove("hidden")
+      const openSpy = vi.spyOn(controller, "openNewItemDialog")
+
+      controller.newFolderInFolder()
+
+      expect(controller.contextMenuTarget.classList.contains("hidden")).toBe(true)
+      expect(openSpy).toHaveBeenCalledWith("folder", "parent/myfolder")
+    })
+
+    it("does nothing if context item is not a folder", () => {
+      controller.contextItem = { path: "test.md", type: "file" }
+      const openSpy = vi.spyOn(controller, "openNewItemDialog")
+
+      controller.newFolderInFolder()
+
+      expect(openSpy).not.toHaveBeenCalled()
+    })
+
+    it("does nothing if no context item", () => {
+      controller.contextItem = null
+      const openSpy = vi.spyOn(controller, "openNewItemDialog")
+
+      controller.newFolderInFolder()
+
+      expect(openSpy).not.toHaveBeenCalled()
     })
   })
 
