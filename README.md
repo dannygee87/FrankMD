@@ -317,7 +317,7 @@ google_cse_id = your-cse-id
 
 # AI/LLM (configure one or more providers)
 # ai_provider = auto
-# ollama_api_base = http://localhost:11434
+# ollama_api_base = http://localhost:11434/v1
 # ollama_model = llama3.2:latest
 # openrouter_api_key = sk-or-...
 # openrouter_model = openai/gpt-4o-mini
@@ -367,7 +367,7 @@ The `.fed` file appears in the explorer panel with a gear icon. You can click it
 | `google_cse_id` | string | - | Google Custom Search Engine ID |
 | `ai_provider` | string | auto | AI provider: auto, ollama, openrouter, anthropic, gemini, openai |
 | `ai_model` | string | (per provider) | Override model for any provider |
-| `ollama_api_base` | string | - | Ollama API base URL (e.g., http://localhost:11434) |
+| `ollama_api_base` | string | - | Ollama API base URL (e.g., http://localhost:11434/v1) |
 | `ollama_model` | string | llama3.2:latest | Ollama model |
 | `openrouter_api_key` | string | - | OpenRouter API key |
 | `openrouter_model` | string | openai/gpt-4o-mini | OpenRouter model |
@@ -468,13 +468,13 @@ Run AI models locally on your machine with no API costs:
 3. Configure in `.fed`:
 
 ```ini
-ollama_api_base = http://localhost:11434
+ollama_api_base = http://localhost:11434/v1
 ollama_model = llama3.2:latest
 ```
 
 **Note for Docker users:** Use `host.docker.internal` instead of `localhost`:
 ```ini
-ollama_api_base = http://host.docker.internal:11434
+ollama_api_base = http://host.docker.internal:11434/v1
 ```
 
 #### Option 2: OpenRouter
