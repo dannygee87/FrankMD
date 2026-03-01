@@ -15,9 +15,9 @@
 
 services:
   frankmd:
-    # image: akitaonrails/frankmd:latest
+    image: akitaonrails/frankmd:latest
     # Or build locally:
-    build: .
+    # build: .
     container_name: frankmd
     restart: unless-stopped
     # Run as host user for proper volume permissions
