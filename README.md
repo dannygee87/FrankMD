@@ -737,7 +737,7 @@ Then add the responsive CSS to your stylesheet (e.g. `assets/css/custom.css` or 
 
 ## Themes
 
-FrankMD includes 18 built-in color themes, plus automatic [Omarchy](https://omarchy.dev) theme sync:
+FrankMD includes 18 built-in color themes, plus automatic [Omarchy](https://omarchy.org) theme sync:
 
 <p align="center">
   <img src="https://new-uploads-akitaonrails.s3.us-east-2.amazonaws.com/frankmd/2026/02/screenshot-2026-02-01_14-37-05.jpg" alt="Theme picker" width="300">
@@ -766,7 +766,7 @@ FrankMD includes 18 built-in color themes, plus automatic [Omarchy](https://omar
 | Solarized Light | Classic light color scheme |
 | Tokyo Night | Vibrant night theme |
 
-**Omarchy auto-sync:** If you run the [Omarchy](https://omarchy.dev) desktop environment, FrankMD detects your terminal theme and adds it as a selectable "Omarchy" option. Switching your terminal theme updates FrankMD in real time.
+**Omarchy auto-sync:** If you run the [Omarchy](https://omarchy.org) desktop environment, FrankMD detects your terminal theme and adds it as a selectable "Omarchy" option. Switching your terminal theme updates FrankMD in real time.
 
 Change themes from the dropdown in the top-right corner. Your preference is saved to the `.fed` file.
 
