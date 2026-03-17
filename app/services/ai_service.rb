@@ -59,7 +59,7 @@ class AiService
       Rails.logger.info "AI request: provider=#{provider}, model=#{model}, key_prefix=#{key_prefix}..., ai_in_file=#{cfg.ai_configured_in_file?}"
 
       configure_client
-      chat = RubyLLM.chat(model: model, provider: provider)
+      chat = RubyLLM.chat(model: model, provider: provider.to_sym, assume_model_exists: provider == "ollama")
       chat.with_instructions(GRAMMAR_PROMPT)
       response = chat.ask(text)
 
