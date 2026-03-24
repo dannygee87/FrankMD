@@ -21,7 +21,14 @@ class NotesController < ApplicationController
   end
 
   def show
-    path = Note.normalize_path(params[:path])
+    raw_path = params[:path].to_s
+
+    # Serve non-markdown files (images, etc.) stored alongside notes
+    unless raw_path.end_with?(".md") || raw_path.end_with?(".fed") || raw_path.exclude?(".")
+      return serve_asset(raw_path)
+    end
+
+    path = Note.normalize_path(raw_path)
 
     # JSON API request - check Accept header since .md extension confuses format detection
     if json_request?
@@ -133,6 +140,24 @@ class NotesController < ApplicationController
   end
 
   private
+
+  def serve_asset(path)
+    notes_path = Pathname.new(ENV.fetch("NOTES_PATH", Rails.root.join("notes")))
+    full_path = notes_path.join(path).cleanpath
+
+    # Prevent path traversal
+    unless full_path.to_s.start_with?(notes_path.to_s)
+      head :forbidden
+      return
+    end
+
+    if full_path.file?
+      content_type = Rack::Mime.mime_type(full_path.extname, "application/octet-stream")
+      send_file full_path, type: content_type, disposition: :inline
+    else
+      head :not_found
+    end
+  end
 
   def json_request?
     # Check Accept header since .md extension in URL confuses Rails format detection

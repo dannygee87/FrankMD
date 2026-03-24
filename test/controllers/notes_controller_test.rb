@@ -89,6 +89,28 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  # === show (asset serving) ===
+
+  test "show serves image files from notes directory" do
+    images_dir = @test_notes_dir.join("images")
+    FileUtils.mkdir_p(images_dir)
+    File.binwrite(images_dir.join("test.png"), "\x89PNG\r\n\x1a\n")
+
+    get note_url(path: "images/test.png")
+    assert_response :success
+    assert_equal "image/png", response.content_type
+  end
+
+  test "show returns 404 for missing asset files" do
+    get note_url(path: "images/nonexistent.png")
+    assert_response :not_found
+  end
+
+  test "show blocks path traversal for assets" do
+    get note_url(path: "../../etc/passwd")
+    assert_response :forbidden
+  end
+
   # === create ===
 
   test "create makes new note" do
