@@ -76,6 +76,14 @@
     opacity: 1;
   }
 
+  /*
+   * Drag and drop visual feedback
+   */
+  .editor-drop-active {
+    outline: 2px dashed var(--theme-accent) !important;
+    outline-offset: -2px;
+  }
+
 }
 
 /*

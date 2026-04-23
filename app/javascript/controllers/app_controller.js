@@ -655,6 +655,18 @@ export default class extends Controller {
     const { markdown } = event.detail
     if (!markdown) return
 
+    this.insertImageMarkdown(markdown)
+  }
+
+  // === Image Drop Handler (drag&drop / paste) ===
+  onImageDropped(event) {
+    const { markdown } = event.detail
+    if (!markdown) return
+
+    this.insertImageMarkdown(markdown)
+  }
+
+  insertImageMarkdown(markdown) {
     const codemirrorController = this.getCodemirrorController()
     if (!codemirrorController) return
 
