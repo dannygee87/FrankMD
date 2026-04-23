@@ -152,7 +152,7 @@ describe("EditorDropController", () => {
 
       vi.mocked(post).mockResolvedValue({
         ok: true,
-        json: () => Promise.resolve({ url: "images/test.png" })
+        json: { url: "images/test.png" }
       })
 
       const dispatchSpy = vi.spyOn(controller, "dispatch")
@@ -205,7 +205,7 @@ describe("EditorDropController", () => {
 
       vi.mocked(post).mockResolvedValue({
         ok: true,
-        json: () => Promise.resolve({ url: "images/dropped.png" })
+        json: { url: "images/dropped.png" }
       })
 
       const dispatchSpy = vi.spyOn(controller, "dispatch")
@@ -288,7 +288,7 @@ describe("EditorDropController", () => {
 
       vi.mocked(post).mockResolvedValue({
         ok: false,
-        json: () => Promise.resolve({ error: "Upload failed" })
+        json: { error: "Upload failed" }
       })
 
       await controller.handleDrop(event)

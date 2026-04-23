@@ -129,20 +129,20 @@ export default class extends Controller {
       const filename = file.name || this.generateFilename()
 
       const response = await post("/images/upload_base64", {
-        body: JSON.stringify({
+        body: {
           data: base64,
           mime_type: file.type,
           filename: filename
-        }),
-        contentType: "application/json"
+        },
+        responseKind: "json"
       })
 
       if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.error || "Upload failed")
+        const data = await response.json
+        throw new Error(data?.error || "Upload failed")
       }
 
-      const result = await response.json()
+      const result = await response.json
       const markdown = `![${file.name || "Image"}](${result.url})`
 
       this.insertMarkdown(markdown)
