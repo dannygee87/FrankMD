@@ -614,6 +614,10 @@ export default class extends Controller {
       this.editorToolbarTarget.classList.add("hidden")
       this.editorPlaceholderTarget.classList.remove("hidden")
 
+      // Expand preview to take full width
+      this.previewPanelTarget.classList.remove("w-[40%]")
+      this.previewPanelTarget.classList.add("w-full")
+
       // Add view-mode class for wider preview
       document.body.classList.add("view-mode")
 
@@ -635,6 +639,10 @@ export default class extends Controller {
       this.editorTarget.classList.remove("hidden")
       this.editorToolbarTarget.classList.remove("hidden")
       this.editorPlaceholderTarget.classList.add("hidden")
+
+      // Reset preview width
+      this.previewPanelTarget.classList.remove("w-full")
+      this.previewPanelTarget.classList.add("w-[40%]")
 
       // Remove view-mode class
       document.body.classList.remove("view-mode")
