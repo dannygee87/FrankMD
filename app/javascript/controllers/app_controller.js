@@ -61,6 +61,9 @@ export default class extends Controller {
     // (don't persist closed state across sessions)
     this.sidebarVisible = true
 
+    // Start in view mode (editor hidden, preview visible) for markdown files
+    // Editor will be shown when user toggles with Ctrl+Shift+Q
+
     // Track pending config saves to debounce
     this.configSaveTimeout = null
 
@@ -405,7 +408,13 @@ export default class extends Controller {
   showEditor(content, fileType = "markdown") {
     this.currentFileType = fileType
     this.editorPlaceholderTarget.classList.add("hidden")
-    this.editorTarget.classList.remove("hidden")
+
+    // Start in view mode by default - hide editor, show preview
+    this.editorTarget.classList.add("hidden")
+    this.editorToolbarTarget.classList.add("hidden")
+    this.previewPanelTarget.classList.remove("w-[40%]")
+    this.previewPanelTarget.classList.add("flex-1")
+    document.body.classList.add("view-mode")
 
     // Reset table hint immediately when loading new content
     this._setTableHintVisible(false)
@@ -612,39 +621,21 @@ export default class extends Controller {
       // Hide editor, show preview only (view mode)
       this.editorTarget.classList.add("hidden")
       this.editorToolbarTarget.classList.add("hidden")
-      this.editorPlaceholderTarget.classList.add("hidden")
 
       // Expand preview to take full width
       this.previewPanelTarget.classList.remove("w-[40%]")
       this.previewPanelTarget.classList.add("flex-1")
-
-      // Add view-mode class for wider preview
       document.body.classList.add("view-mode")
-
-      // Ensure sidebar is shown in view mode
-      if (!this.sidebarVisible) {
-        this.sidebarVisible = true
-        this.applySidebarVisibility()
-      }
-
-      // Ensure preview is shown
-      const previewController = this.getPreviewController()
-      if (previewController && !previewController.isVisible) {
-        previewController.show()
-      }
 
       this.showTemporaryMessage("View mode: Press Ctrl+Shift+Q to edit")
     } else {
       // Show editor again
       this.editorTarget.classList.remove("hidden")
       this.editorToolbarTarget.classList.remove("hidden")
-      this.editorPlaceholderTarget.classList.add("hidden")
 
       // Reset preview width
       this.previewPanelTarget.classList.remove("flex-1")
       this.previewPanelTarget.classList.add("w-[40%]")
-
-      // Remove view-mode class
       document.body.classList.remove("view-mode")
     }
 
