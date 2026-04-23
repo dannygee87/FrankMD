@@ -32,7 +32,8 @@ en:
   header:
     toggle_explorer: "Toggle Explorer (Ctrl+E)"
     toggle_typewriter: "Toggle Typewriter Mode (Ctrl+B)"
-    toggle_preview: "Toggle Preview (Ctrl+Shift+P)"
+    toggle_preview: "Toggle Preview (Ctrl+Shift+V)"
+    toggle_editor: "Toggle Editor/View Mode (Ctrl+Shift+Q)"
     change_theme: "Change Theme"
     change_language: "Change Language"
     about_app: "About FrankMD"

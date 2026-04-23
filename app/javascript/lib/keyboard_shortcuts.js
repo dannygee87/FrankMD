@@ -14,7 +14,7 @@ export const DEFAULT_SHORTCUTS = {
   // Note: bold (Ctrl+B) and italic (Ctrl+I) are handled by CodeMirror's keymap
   // in codemirror_extensions.js - do not add them here to avoid double execution
   togglePreview:  { key: "V", ctrl: true, shift: true },
-  toggleEditor:   { key: "e", ctrl: true, shift: true },
+  toggleEditor:   { key: "Q", ctrl: true, shift: true },
   findInFile:     { key: "f", ctrl: true },
   findReplace:    { key: "h", ctrl: true },
   jumpToLine:     { key: "g", ctrl: true },
