@@ -14,21 +14,22 @@ export const DEFAULT_SHORTCUTS = {
   // Note: bold (Ctrl+B) and italic (Ctrl+I) are handled by CodeMirror's keymap
   // in codemirror_extensions.js - do not add them here to avoid double execution
   togglePreview:  { key: "V", ctrl: true, shift: true },
+  toggleEditor:   { key: "e", ctrl: true, shift: true },
   findInFile:     { key: "f", ctrl: true },
   findReplace:    { key: "h", ctrl: true },
   jumpToLine:     { key: "g", ctrl: true },
-  lineNumbers:    { key: "l", ctrl: true },
+  lineNumbers:   { key: "l", ctrl: true },
   contentSearch:  { key: "F", ctrl: true, shift: true },
   fileFinder:     { key: "p", ctrl: true },
   toggleSidebar:  { key: "e", ctrl: true },
   typewriterMode: { key: "\\", ctrl: true },
-  textFormat:     { key: "m", ctrl: true },
+  textFormat:      { key: "m", ctrl: true },
   emojiPicker:    { key: "E", ctrl: true, shift: true },
   increaseWidth:  { key: "+", ctrl: true, shift: true },  // Ctrl+Shift++ (increase editor width)
   decreaseWidth:  { key: "_", ctrl: true, shift: true },  // Ctrl+Shift+- (decrease editor width)
   logViewer:      { key: "O", ctrl: true, shift: true },  // Ctrl+Shift+O (open log viewer)
-  help:           { key: "F1" },
-  closeDialogs:   { key: "Escape", preventDefault: false }
+  help:          { key: "F1" },
+  closeDialogs:  { key: "Escape", preventDefault: false }
 }
 
 // Legacy export for backwards compatibility

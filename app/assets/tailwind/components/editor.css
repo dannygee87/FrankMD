@@ -84,6 +84,14 @@
     outline-offset: -2px;
   }
 
+  /*
+   * View mode - preview takes center space when editor is hidden
+   */
+  body.view-mode [data-app-target="previewPanel"] {
+    width: 60%;
+    border-left: 1px solid var(--theme-border);
+  }
+
 }
 
 /*

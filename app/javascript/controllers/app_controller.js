@@ -599,6 +599,51 @@ export default class extends Controller {
     }
   }
 
+  // === Editor Panel - Toggle editor visibility (view-only mode) ===
+  toggleEditor() {
+    if (!this.isMarkdownFile()) {
+      this.showTemporaryMessage("Editor is only available for markdown files")
+      return
+    }
+
+    const editorVisible = !this.editorTarget.classList.contains("hidden")
+
+    if (editorVisible) {
+      // Hide editor, show preview only (view mode)
+      this.editorTarget.classList.add("hidden")
+      this.editorToolbarTarget.classList.add("hidden")
+      this.editorPlaceholderTarget.classList.remove("hidden")
+
+      // Add view-mode class for wider preview
+      document.body.classList.add("view-mode")
+
+      // Ensure sidebar is shown in view mode
+      if (!this.sidebarVisible) {
+        this.sidebarVisible = true
+        this.applySidebarVisibility()
+      }
+
+      // Ensure preview is shown
+      const previewController = this.getPreviewController()
+      if (previewController && !previewController.isVisible) {
+        previewController.show()
+      }
+
+      this.showTemporaryMessage("View mode: Press Ctrl+Shift+E to edit")
+    } else {
+      // Show editor again
+      this.editorTarget.classList.remove("hidden")
+      this.editorToolbarTarget.classList.remove("hidden")
+      this.editorPlaceholderTarget.classList.add("hidden")
+
+      // Remove view-mode class
+      document.body.classList.remove("view-mode")
+    }
+
+    // Dispatch event
+    this.dispatch("editor-toggled", { detail: { visible: !editorVisible } })
+  }
+
   updatePreview() {
     const scrollSync = this.getScrollSyncController()
     if (scrollSync) scrollSync.updatePreview()
@@ -1435,6 +1480,7 @@ export default class extends Controller {
       save: () => this.getAutosaveController()?.saveNow(),
       // Note: bold and italic are handled by CodeMirror's keymap (codemirror_extensions.js)
       togglePreview: () => this.togglePreview(),
+      toggleEditor: () => this.toggleEditor(),
       findInFile: () => this.openFindReplace(),
       findReplace: () => this.openFindReplace({ tab: "replace" }),
       jumpToLine: () => this.openJumpToLine(),
