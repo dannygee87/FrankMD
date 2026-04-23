@@ -629,7 +629,7 @@ export default class extends Controller {
         previewController.show()
       }
 
-      this.showTemporaryMessage("View mode: Press Ctrl+Shift+E to edit")
+      this.showTemporaryMessage("View mode: Press Ctrl+Shift+Q to edit")
     } else {
       // Show editor again
       this.editorTarget.classList.remove("hidden")

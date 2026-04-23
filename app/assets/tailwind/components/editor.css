@@ -85,11 +85,18 @@
   }
 
   /*
-   * View mode - preview takes center space when editor is hidden
+   * View mode - preview takes full center space when editor is hidden
    */
   body.view-mode [data-app-target="previewPanel"] {
-    width: 60%;
+    width: 100% !important;
+    flex: 1 1 0% !important;
+    min-width: 0;
     border-left: 1px solid var(--theme-border);
+  }
+
+  /* Editor container should collapse in view mode */
+  body.view-mode [data-app-target="editorContainer"] {
+    display: none;
   }
 
 }
