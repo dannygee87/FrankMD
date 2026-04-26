@@ -27,7 +27,7 @@ class ImagesController < ApplicationController
   # GET /images/preview/*path
   def preview
     path = params[:path]
-    full_path = ImagesService.find_image(path)
+    full_path = ImagesService.find_notes_image(path)
 
     if full_path
       send_file full_path, disposition: "inline"

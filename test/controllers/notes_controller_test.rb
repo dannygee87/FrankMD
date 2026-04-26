@@ -92,17 +92,17 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   # === show (asset serving) ===
 
   test "show serves image files from notes directory" do
-    images_dir = @test_notes_dir.join("images")
+    images_dir = @test_notes_dir.join(".images")
     FileUtils.mkdir_p(images_dir)
     File.binwrite(images_dir.join("test.png"), "\x89PNG\r\n\x1a\n")
 
-    get note_url(path: "images/test.png")
+    get note_url(path: ".images/test.png")
     assert_response :success
     assert_equal "image/png", response.content_type
   end
 
   test "show returns 404 for missing asset files" do
-    get note_url(path: "images/nonexistent.png")
+    get note_url(path: ".images/nonexistent.png")
     assert_response :not_found
   end
 

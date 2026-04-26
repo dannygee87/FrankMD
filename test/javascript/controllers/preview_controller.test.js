@@ -188,6 +188,30 @@ describe("PreviewController", () => {
       await new Promise(resolve => setTimeout(resolve, 110))
       expect(controller._isUpdatingContent).toBe(false)
     })
+
+    it("fixes relative image URLs to be root-relative", () => {
+      controller.render("![img](.images/test.png)")
+      const img = controller.contentTarget.querySelector("img")
+      expect(img.getAttribute("src")).toBe("/.images/test.png")
+    })
+
+    it("preserves absolute URLs (starting with /)", () => {
+      controller.render("![img](/absolute/path.png)")
+      const img = controller.contentTarget.querySelector("img")
+      expect(img.getAttribute("src")).toBe("/absolute/path.png")
+    })
+
+    it("preserves http URLs", () => {
+      controller.render("![img](https://example.com/image.png)")
+      const img = controller.contentTarget.querySelector("img")
+      expect(img.getAttribute("src")).toBe("https://example.com/image.png")
+    })
+
+    it("preserves data URLs", () => {
+      controller.render("![img](data:image/png;base64,ABC)")
+      const img = controller.contentTarget.querySelector("img")
+      expect(img.getAttribute("src")).toBe("data:image/png;base64,ABC")
+    })
   })
 
   describe("update()", () => {

@@ -74,6 +74,16 @@ class ImagesService
       full_path
     end
 
+    def find_notes_image(path)
+      notes_path = Pathname.new(ENV.fetch("NOTES_PATH", Rails.root.join("notes")))
+      full_path = notes_path.join(path).cleanpath
+
+      return nil unless full_path.to_s.start_with?(notes_path.to_s)
+      return nil unless full_path.exist? && full_path.file?
+
+      full_path
+    end
+
     def upload_to_s3(path, resize: nil)
       return nil unless s3_enabled?
 
@@ -365,12 +375,12 @@ class ImagesService
       end
     end
 
-    # Save uploaded file to notes/images/ directory
+    # Save uploaded file to notes/.images/ directory
     def save_to_notes_directory(temp_path, original_filename, resize: nil)
       require "fileutils"
 
       notes_path = Pathname.new(ENV.fetch("NOTES_PATH", Rails.root.join("notes")))
-      images_dir = notes_path.join("images")
+      images_dir = notes_path.join(".images")
       FileUtils.mkdir_p(images_dir)
 
       # Generate unique filename with timestamp
@@ -384,13 +394,13 @@ class ImagesService
         resized_data, _content_type, _new_filename = resize_and_compress(Pathname.new(temp_path), dest_filename, resize.to_f)
         dest_path = images_dir.join(dest_filename)
         File.binwrite(dest_path, resized_data)
-        { url: "images/#{dest_filename}" }
+        { url: ".images/#{dest_filename}" }
       else
         # Copy as-is
         dest_filename = "#{timestamp}_#{safe_name}"
         dest_path = images_dir.join(dest_filename)
         FileUtils.cp(temp_path, dest_path)
-        { url: "images/#{dest_filename}" }
+        { url: ".images/#{dest_filename}" }
       end
     end
 

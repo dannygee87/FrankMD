@@ -162,7 +162,7 @@ class ImagesServiceTest < ActiveSupport::TestCase
     result = ImagesService.upload_base64_data(base64_data, mime_type: "image/png", filename: "test_ai.png")
 
     assert result[:url]
-    assert result[:url].start_with?("images/")
+    assert result[:url].start_with?(".images/")
     assert result[:url].include?("test_ai")
 
     # Clean up

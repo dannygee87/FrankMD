@@ -231,6 +231,9 @@ export default class extends Controller {
     // Parse with line numbers for accurate scroll sync
     this.contentTarget.innerHTML = parseWithLineNumbers(content, frontmatterLines)
 
+    // Fix image URLs to be root-relative (prevents subfolder notes from breaking image paths)
+    this._fixImageUrls()
+
     // Add copy buttons to code blocks
     this._addCodeCopyButtons()
 
@@ -506,7 +509,25 @@ export default class extends Controller {
     })
   }
 
-  // Add copy buttons to all code blocks in the preview
+  // Fix relative image URLs to be root-relative
+  // Markdown `![](path)` resolves relative to current URL, breaking in subfolders
+  _fixImageUrls() {
+    if (!this.hasContentTarget) return
+
+    this.contentTarget.querySelectorAll("img").forEach(img => {
+      const src = img.getAttribute("src")
+      if (!src) return
+
+      // Only fix relative URLs that start with a folder name (not absolute paths or URLs)
+      if (src.startsWith("/") || src.startsWith("http") || src.startsWith("data:")) return
+
+      // Convert relative path to root-relative (prepend /)
+      if (!src.startsWith("/")) {
+        img.setAttribute("src", "/" + src)
+      }
+    })
+  }
+
   _addCodeCopyButtons() {
     if (!this.hasContentTarget) return
 

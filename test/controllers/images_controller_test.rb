@@ -166,13 +166,13 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
       # Set up notes path for this test
       notes_path = Pathname.new(ENV.fetch("NOTES_PATH", Rails.root.join("notes")))
-      images_dir = notes_path.join("images")
+      images_dir = notes_path.join(".images")
 
       post "/images/upload", params: { file: file }
       assert_response :success
 
       data = JSON.parse(response.body)
-      assert data["url"].start_with?("images/")
+      assert data["url"].start_with?(".images/")
       assert data["url"].include?("test_upload")
 
       # Clean up
@@ -203,7 +203,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
       # because upload_to_s3 only works when s3_enabled? is true
       assert_response :success
       data = JSON.parse(response.body)
-      assert data["url"].start_with?("images/")
+      assert data["url"].start_with?(".images/")
 
       # Clean up
       notes_path = Pathname.new(ENV.fetch("NOTES_PATH", Rails.root.join("notes")))
@@ -233,7 +233,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
       assert_response :success
       data = JSON.parse(response.body)
-      assert data["url"].start_with?("images/")
+      assert data["url"].start_with?(".images/")
       assert data["url"].include?("ai_test")
 
       # Clean up
@@ -280,7 +280,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
       assert_response :success
       data = JSON.parse(response.body)
-      assert data["url"].start_with?("images/")
+      assert data["url"].start_with?(".images/")
       assert data["url"].include?("ai_generated_")
 
       # Clean up
