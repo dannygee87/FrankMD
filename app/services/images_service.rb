@@ -394,13 +394,13 @@ class ImagesService
         resized_data, _content_type, _new_filename = resize_and_compress(Pathname.new(temp_path), dest_filename, resize.to_f)
         dest_path = images_dir.join(dest_filename)
         File.binwrite(dest_path, resized_data)
-        { url: ".images/#{dest_filename}" }
+        { url: "/images/preview/.images/#{dest_filename}" }
       else
         # Copy as-is
         dest_filename = "#{timestamp}_#{safe_name}"
         dest_path = images_dir.join(dest_filename)
         FileUtils.cp(temp_path, dest_path)
-        { url: ".images/#{dest_filename}" }
+        { url: "/images/preview/.images/#{dest_filename}" }
       end
     end
 

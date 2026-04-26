@@ -506,11 +506,9 @@ export default class extends Controller {
           })
         }
       })
-    })
+})
   }
 
-  // Fix relative image URLs to be root-relative
-  // Markdown `![](path)` resolves relative to current URL, breaking in subfolders
   _fixImageUrls() {
     if (!this.hasContentTarget) return
 
@@ -518,13 +516,9 @@ export default class extends Controller {
       const src = img.getAttribute("src")
       if (!src) return
 
-      // Only fix relative URLs that start with a folder name (not absolute paths or URLs)
       if (src.startsWith("/") || src.startsWith("http") || src.startsWith("data:")) return
 
-      // Convert relative path to root-relative (prepend /)
-      if (!src.startsWith("/")) {
-        img.setAttribute("src", "/" + src)
-      }
+      img.setAttribute("src", `/images/preview/${src}`)
     })
   }
 

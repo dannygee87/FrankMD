@@ -189,16 +189,16 @@ describe("PreviewController", () => {
       expect(controller._isUpdatingContent).toBe(false)
     })
 
-    it("fixes relative image URLs to be root-relative", () => {
-      controller.render("![img](.images/test.png)")
+    it("fixes relative image URLs to use images preview endpoint", () => {
+      controller.render("![img](my_images/test.png)")
       const img = controller.contentTarget.querySelector("img")
-      expect(img.getAttribute("src")).toBe("/.images/test.png")
+      expect(img.getAttribute("src")).toBe("/images/preview/my_images/test.png")
     })
 
-    it("preserves absolute URLs (starting with /)", () => {
-      controller.render("![img](/absolute/path.png)")
+    it("preserves absolute URLs (starting with /images/preview/)", () => {
+      controller.render("![img](/images/preview/.images/test.png)")
       const img = controller.contentTarget.querySelector("img")
-      expect(img.getAttribute("src")).toBe("/absolute/path.png")
+      expect(img.getAttribute("src")).toBe("/images/preview/.images/test.png")
     })
 
     it("preserves http URLs", () => {

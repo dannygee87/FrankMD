@@ -152,7 +152,7 @@ describe("EditorDropController", () => {
 
       vi.mocked(post).mockResolvedValue({
         ok: true,
-        json: { url: ".images/test.png" }
+        json: { url: "/images/preview/.images/test.png" }
       })
 
       const dispatchSpy = vi.spyOn(controller, "dispatch")
@@ -161,7 +161,7 @@ describe("EditorDropController", () => {
 
       expect(event.preventDefault).toHaveBeenCalled()
       expect(dispatchSpy).toHaveBeenCalledWith("image-insert", {
-        detail: { markdown: "![clipboard.png](.images/test.png)" }
+        detail: { markdown: "![clipboard.png](/images/preview/.images/test.png)" }
       })
     })
 
@@ -205,7 +205,7 @@ describe("EditorDropController", () => {
 
       vi.mocked(post).mockResolvedValue({
         ok: true,
-        json: { url: ".images/dropped.png" }
+        json: { url: "/images/preview/.images/dropped.png" }
       })
 
       const dispatchSpy = vi.spyOn(controller, "dispatch")
@@ -214,7 +214,7 @@ describe("EditorDropController", () => {
 
       expect(event.preventDefault).toHaveBeenCalled()
       expect(dispatchSpy).toHaveBeenCalledWith("image-insert", {
-        detail: { markdown: "![dropped.png](.images/dropped.png)" }
+        detail: { markdown: "![dropped.png](/images/preview/.images/dropped.png)" }
       })
     })
 
